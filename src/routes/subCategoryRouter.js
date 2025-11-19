@@ -9,4 +9,5 @@ subCategoryRouter.put("/:id", updateSubCategory);
 subCategoryRouter.delete("/:id", deleteSubCategory);
 subCategoryRouter.get("/with-products", getAllSubCategoriesWithProducts);
 
+
 export default subCategoryRouter;
