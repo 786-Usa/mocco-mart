@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Category } from "../models/category.model.js";
 
 
@@ -74,4 +75,27 @@ const deleteCategory = async (req, res) => {
     }
 }
 
-export { createCategory,getAllCategories,updateCategory,deleteCategory };
+const getCategoryWithSubCategories = async (req, res) => {
+    // Implementation for fetching a category along with its sub-categories
+    try {
+        const getAllCategories = await Category.aggregate([
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "_id",
+                    foreignField: "categoryId",
+                    as: "subCategories"
+                }
+    }])
+    if(!getAllCategories){
+        return res.status(404).json({message: "No categories found"});
+    }
+    res.status(200).json({message: "Categories fetched successfully",  getAllCategories});  
+    } catch (error) {
+        res.status(500).json({ message: "Server Error", error: error.message });
+        
+    }
+};
+
+
+export { createCategory,getAllCategories,updateCategory,deleteCategory, getCategoryWithSubCategories };
