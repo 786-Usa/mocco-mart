@@ -19,6 +19,8 @@ app.use('/api/users', userRouter);
 app.use('/api/admin/categories',categoryRouter)
 app.use('/api/admin/sub-categories',subCategoryRouter);
 app.use("/api/admin/products",productRouter);
+app.use("/api/wishlist", wishlistRouter);
+app.use("/api/cart", cartRouter);
 
 
 

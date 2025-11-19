@@ -106,5 +106,35 @@ const singleProduct = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+const FilterProducts = async (req, res) => {
+  // Implementation for filtering products
+  const { categoryId, subCategoryId, minPrice, maxPrice, brand } = req.query;
+  try {
+    const filter = {};
+    if (categoryId) {
+      filter.categoryId = categoryId;
+    }
+    if (subCategoryId) {
+      filter.subCategoryId = subCategoryId;
+    }
+    if (minPrice && maxPrice) {
+      filter.price = { $gte: Number(minPrice), $lte: Number(maxPrice) };
+    }
+    if (brand) {
+      filter.brand = brand;
+    }
+    const products = await Product.find(filter);
+    if (!products) {
+      return res.status(404).json({ message: "No products found" });
+    }
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No products found" });
+    } else {
+      res.status(200).json({ message: "Products fetched successfully", products });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
 
-export { getProducts, createProduct, updateProduct, deleteProduct, singleProduct };
+export { getProducts, createProduct, updateProduct, deleteProduct, singleProduct, FilterProducts };
