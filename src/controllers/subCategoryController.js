@@ -74,9 +74,32 @@ const deleteSubCategory = async (req, res) => {
     }
 };
 
+const getAllSubCategoriesWithProducts = async (req, res) => {
+    
+  try {
+      const gettingproducts = await SubCategory.aggregate([
+          {
+              $lookup:{
+                  from:"products",
+                  localField:"_id",
+                  foreignField:"subCategoryId",
+                  as:"products"
+              }
+          }
+      ]);
+      if(!gettingproducts){
+          return res.status(404).json({ message: "No sub-categories found" });
+      }
+      res.status(200).json({ message: "SubCategories with products fetched successfully",  gettingproducts });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 export {
   createSubCategory,
   getAllSubCategories,
   updateSubCategory,
   deleteSubCategory,
+  getAllSubCategoriesWithProducts
 };
