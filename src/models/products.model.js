@@ -32,7 +32,7 @@ subCategoryId: {
     required: true, 
 },
 stock:{
-    type: String,
+    type: Number,
     required: true,
 },
 // image:{
