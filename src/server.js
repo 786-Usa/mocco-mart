@@ -5,11 +5,14 @@ dotenv.config({
     path: "./.env", // Path to the environment variables file
 });
 
+import createDefaultAdmin from './utils/createDefaultAdmin.js';
+
 const port = process.env.PORT || 5000;
 
 connectDB()
     .then(() => {
-        app.listen(port, () => {
+        app.listen(port, async () => {
+            await createDefaultAdmin();
             console.log(`Server is running on port ${port}`)
         })
     })

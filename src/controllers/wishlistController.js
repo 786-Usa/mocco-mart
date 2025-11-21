@@ -1,4 +1,4 @@
-import Wishlist from '../models/Wishlist.js';
+import Wishlist from '../models/wishlist.model.js';
 const favouriteProduct = async (req, res) => {
     // Implementation for adding a product to wishlist
     const { userId, productId } = req.body;

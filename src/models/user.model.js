@@ -15,7 +15,16 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    refreshToken: {
+        type: String,
+    },
+    role: {
+  type: String,
+  enum: ["user", "admin"],
+  default: "user"
+}
+
 })
 
 export const User = mongoose.model("User", userSchema);
