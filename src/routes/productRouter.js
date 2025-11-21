@@ -11,7 +11,7 @@ import adminMiddleware from "../middlewares/admin.middleware.js";
 
 const productRouter = Router();
 
-productRouter.get("/",authMiddleware,adminMiddleware, getProducts);
+productRouter.get("/", getProducts);
 productRouter.post("/", authMiddleware, adminMiddleware, createProduct);
 productRouter.put("/:id", authMiddleware, adminMiddleware, updateProduct);
 productRouter.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);

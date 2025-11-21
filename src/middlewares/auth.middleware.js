@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
     const token =
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
-      console.log("Access Token:", token);
+      // console.log("Access Token:", token);
 
     // console.log(token);
     if (!token) {
@@ -17,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-    console.log("Decoded Token:", decodedToken);
+    // console.log("Decoded Token:", decodedToken);
 
     const user = await User.findById(decodedToken?._id).select(
       "-password -refreshToken"
